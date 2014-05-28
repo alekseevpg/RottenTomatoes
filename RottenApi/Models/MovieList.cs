@@ -16,15 +16,17 @@ namespace RottenApi
 
         public string Year { get; set; }
 
-        public string Rating { get; set; }
+        public Ratings Ratings { get; set; }
 
         public string Runtime { get; set; }
-
-        public string Thumbnail { get; set; }
 
         public string MpaaRating { get; set; }
 
         public Posters Posters { get; set; }
+
+        public List<Actor> AbridgedCast { get; set; }
+
+        public ReleaseDates ReleaseDates { get; set; }
     }
 
     public class Posters
@@ -32,6 +34,25 @@ namespace RottenApi
         public string Thumbnail { get; set; }
 
         public string Profile { get; set; }
+    }
+
+    public class Ratings
+    {
+        public string CriticsRating { get; set; }
+
+        public string CriticsScore { get; set; }
+    }
+
+    public class Actor
+    {
+        public string Name { get; set; }
+
+        public List<string> Characters { get; set; }
+    }
+
+    public class ReleaseDates
+    {
+        public DateTime Theater { get; set; }
     }
 }
 
