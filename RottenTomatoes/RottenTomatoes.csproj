@@ -108,10 +108,12 @@
     <Compile Include="IoCContainer\IContainerAdapter.cs" />
     <Compile Include="IoCContainer\TinyIoC.cs" />
     <Compile Include="IoCContainer\TinyIocAdapter.cs" />
+    <Compile Include="Images.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="IoCContainer\" />
+    <Folder Include="Content\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RottenApi\RottenApi.csproj">
@@ -124,5 +126,10 @@
       <Version>104.1.0</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\CF_300x300.png" />
+    <Content Include="Content\fresh.png" />
+    <Content Include="Content\rotten.png" />
   </ItemGroup>
 </Project>
