@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RottenTomatoes", "RottenTomatoes\RottenTomatoes.csproj", "{5CB3310F-3A4B-4E17-9B02-893EB8AF713B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RottenApi", "RottenApi\RottenApi.csproj", "{05CF34E8-81EA-4E33-8FBE-C46EA521E396}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|iPhoneSimulator = Debug|iPhoneSimulator
+		Release|iPhoneSimulator = Release|iPhoneSimulator
+		Debug|iPhone = Debug|iPhone
+		Release|iPhone = Release|iPhone
+		Ad-Hoc|iPhone = Ad-Hoc|iPhone
+		AppStore|iPhone = AppStore|iPhone
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{05CF34E8-81EA-4E33-8FBE-C46EA521E396}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{05CF34E8-81EA-4E33-8FBE-C46EA521E396}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{05CF34E8-81EA-4E33-8FBE-C46EA521E396}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{05CF34E8-81EA-4E33-8FBE-C46EA521E396}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{05CF34E8-81EA-4E33-8FBE-C46EA521E396}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{05CF34E8-81EA-4E33-8FBE-C46EA521E396}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{05CF34E8-81EA-4E33-8FBE-C46EA521E396}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{05CF34E8-81EA-4E33-8FBE-C46EA521E396}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{05CF34E8-81EA-4E33-8FBE-C46EA521E396}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{05CF34E8-81EA-4E33-8FBE-C46EA521E396}.Release|iPhone.Build.0 = Release|Any CPU
+		{05CF34E8-81EA-4E33-8FBE-C46EA521E396}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{05CF34E8-81EA-4E33-8FBE-C46EA521E396}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{5CB3310F-3A4B-4E17-9B02-893EB8AF713B}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
+		{5CB3310F-3A4B-4E17-9B02-893EB8AF713B}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
+		{5CB3310F-3A4B-4E17-9B02-893EB8AF713B}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
+		{5CB3310F-3A4B-4E17-9B02-893EB8AF713B}.AppStore|iPhone.Build.0 = AppStore|iPhone
+		{5CB3310F-3A4B-4E17-9B02-893EB8AF713B}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{5CB3310F-3A4B-4E17-9B02-893EB8AF713B}.Debug|iPhone.Build.0 = Debug|iPhone
+		{5CB3310F-3A4B-4E17-9B02-893EB8AF713B}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{5CB3310F-3A4B-4E17-9B02-893EB8AF713B}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{5CB3310F-3A4B-4E17-9B02-893EB8AF713B}.Release|iPhone.ActiveCfg = Release|iPhone
+		{5CB3310F-3A4B-4E17-9B02-893EB8AF713B}.Release|iPhone.Build.0 = Release|iPhone
+		{5CB3310F-3A4B-4E17-9B02-893EB8AF713B}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{5CB3310F-3A4B-4E17-9B02-893EB8AF713B}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = RottenTomatoes\RottenTomatoes.csproj
+	EndGlobalSection
+EndGlobal
