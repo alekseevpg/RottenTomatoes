@@ -26,7 +26,7 @@ namespace RottenTomatoes
             _tableSource.InitSource();
             _table = new UITableView(new RectangleF(0, 20, 320, 460 + Device.PhoneHeightOffset), UITableViewStyle.Plain);
             _table.RegisterClassForCellReuse(typeof(BoxOfficeTableCell), BoxOfficeTableCell.CellId); 
-            _table.BackgroundColor = UIColor.Red;
+            _table.BackgroundColor = UIColor.Clear;
             _table.Source = _tableSource;
 
 
