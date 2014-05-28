@@ -1,11 +1,22 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using MonoTouch.UIKit;
 
 namespace RottenTomatoes
 {
-    public class Images
+    public static class Images
     {
-        public Images()
+        private static Dictionary<string, UIImage> images = new Dictionary<string, UIImage>();
+
+        public static UIImage Get(string path)
         {
+            if (images.ContainsKey(path))
+                return images[path];
+            else
+            {
+                var image = UIImage.FromFile(path);
+                images.Add(path, image);
+                return image;
+            }
         }
     }
 }
