@@ -11,8 +11,6 @@ using System.Collections.Generic;
 
 namespace RottenTomatoes
 {
-
-
     public class MoviesTableSource : UITableViewSource
     {
         public event Action ReloadSectionNeeded = delegate {};

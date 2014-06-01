@@ -22,7 +22,6 @@ namespace RottenApi
         public ServerApi()
         {
             _restClient = new RestClient("http://api.rottentomatoes.com/api/public/v1.0/");
-
         }
 
         public void GetOpeningThisWeek(Action<MovieList> callback)
@@ -45,6 +44,20 @@ namespace RottenApi
             request.AddParameter("page_limit", 10);
             request.AddParameter("page", 2);
             ExecuteMovieRequestRequest(request, callback);
+        }
+
+        public void GetMovieInfo(string id, Action callback)
+        {
+            var request = new RestRequest(string.Format("lists/movies/{0}.json", id));
+
+            request.AddParameter("apikey", RottenKey);
+            _restClient.ExecuteAsync<MovieList>(request, response =>
+            {
+                if ((response.ErrorException == null || response.Content.Contains("error")) && callback != null)
+                {
+                    callback(response.Data);
+                }
+            });
         }
 
         private void ExecuteMovieRequestRequest(RestRequest request, Action<MovieList> callback)

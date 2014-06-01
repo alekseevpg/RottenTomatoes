@@ -50,6 +50,13 @@ namespace RottenApi
         }
     }
 
+    public class MovieInfo : Movie
+    {
+        public List<string> Genres { get; set; }
+
+        public string CriticsConsensus { get; set; }
+    }
+
     public class Posters
     {
         public string Thumbnail { get; set; }
