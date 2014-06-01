@@ -2,6 +2,7 @@
 using MonoTouch.UIKit;
 using RottenApi;
 using System.Drawing;
+using MonoTouch.Foundation;
 
 namespace RottenTomatoes
 {
@@ -13,6 +14,8 @@ namespace RottenTomatoes
         {
         }
 
+        MovieTableSource _movieSource;
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
@@ -21,8 +24,10 @@ namespace RottenTomatoes
             NavigationController.NavigationBar.SetTitleTextAttributes(new UITextAttributes(){ TextColor = UIColor.White });
             View.BackgroundColor = UIColor.White;
 
-            var _movieSource = new MovieTableSource();
+            _movieSource = new MovieTableSource();
             TableView.Source = _movieSource;
+
+            TableView.RegisterClassForCellReuse(typeof(MovieTableCell), MovieTableCell.CellId);
 
         }
 
@@ -31,6 +36,7 @@ namespace RottenTomatoes
             base.ViewWillAppear(animated);
             NavigationController.SetNavigationBarHidden(false, true);
             Title = _movie.Title;
+            _movieSource.UpdateSource(_movie);
         }
 
         public void InitWithMovie(Movie movie)
@@ -41,6 +47,13 @@ namespace RottenTomatoes
 
     public class MovieTableSource : UITableViewSource
     {
+        private Movie _movie;
+
+        public void UpdateSource(Movie movie)
+        {
+            _movie = movie;
+        }
+
         public override int NumberOfSections(UITableView tableView)
         {
             return 4;
@@ -48,19 +61,42 @@ namespace RottenTomatoes
 
         public override int RowsInSection(UITableView tableview, int section)
         {
-            return 5;
+            switch (section)
+            {
+                case 0:
+                    return 1;
+                default:
+                    return 5;
+            }
         }
 
-        public override UITableViewCell GetCell(UITableView tableView, MonoTouch.Foundation.NSIndexPath indexPath)
+        public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
-            return new UITableViewCell();
+            switch (indexPath.Section)
+            {
+                case 0:
+                    return 90.5f;
+                default:
+                    return 50;
+            }
+        }
+
+        public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
+        {
+            switch (indexPath.Section)
+            {
+                case 0:
+                    MovieTableCell movieCell = (MovieTableCell)tableView.DequeueReusableCell(MovieTableCell.CellId);
+                    movieCell.UpdateCell(_movie);
+                    return movieCell;
+                default:
+                    return new UITableViewCell();
+            }
         }
 
         public override float GetHeightForHeader(UITableView tableView, int section)
         {
-            if (section == 0)
-                return 0.0001f;
-            return 40;
+            return section == 0 ? 0.0001f : 40;
         }
 
         public override UIView GetViewForHeader(UITableView tableView, int section)
