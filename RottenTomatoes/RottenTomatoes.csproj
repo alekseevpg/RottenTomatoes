@@ -105,21 +105,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="Device.cs" />
     <Compile Include="IoCContainer\Container.cs" />
     <Compile Include="IoCContainer\IContainerAdapter.cs" />
     <Compile Include="IoCContainer\TinyIoC.cs" />
     <Compile Include="IoCContainer\TinyIocAdapter.cs" />
-    <Compile Include="Images.cs" />
     <Compile Include="MainViewController.cs" />
     <Compile Include="MoviesTableSource.cs" />
     <Compile Include="MovieViewController.cs" />
+    <Compile Include="Helpers\Images.cs" />
+    <Compile Include="Helpers\Device.cs" />
+    <Compile Include="Enums\MoviesType.cs" />
+    <Compile Include="MovieTableCell.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="IoCContainer\" />
     <Folder Include="Content\" />
     <Folder Include="Content\Icons\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Enums\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RottenApi\RottenApi.csproj">
