@@ -10,36 +10,49 @@ namespace RottenApi
         void GetBoxOfficeMovies(Action<MovieList> callback);
 
         void GetOpeningThisWeek(Action<MovieList> callback);
+
+        void GetAlsoInTheaters(Action<MovieList> callback);
     }
 
     public class ServerApi : IServerApi
     {
-        private RestClient _restClient;
         private readonly string RottenKey = "3b3ywrhy5rrsc4u7b32s5wfp";
+        private RestClient _restClient;
 
         public ServerApi()
         {
             _restClient = new RestClient("http://api.rottentomatoes.com/api/public/v1.0/");
-        }
 
-        public void GetBoxOfficeMovies(Action<MovieList> callback)
-        {
-            var request = new RestRequest(string.Format("lists/movies/box_office.json?apikey={0}", RottenKey));
-            _restClient.ExecuteAsync<MovieList>(request, response =>
-            {
-                if (response.ErrorException == null && callback != null)
-                {
-                    callback(response.Data);
-                }
-            });
         }
 
         public void GetOpeningThisWeek(Action<MovieList> callback)
         {
-            var request = new RestRequest(string.Format("lists/movies/opening.json?apikey={0}", RottenKey));
+            var request = new RestRequest("lists/movies/opening.json");
+            request.AddParameter("limit", 2);
+            ExecuteMovieRequestRequest(request, callback);
+        }
+
+        public void GetBoxOfficeMovies(Action<MovieList> callback)
+        {
+            var request = new RestRequest("lists/movies/box_office.json");
+            request.AddParameter("limit", 10);
+            ExecuteMovieRequestRequest(request, callback);
+        }
+
+        public void GetAlsoInTheaters(Action<MovieList> callback)
+        {
+            var request = new RestRequest("lists/movies/in_theaters.json");
+            request.AddParameter("page_limit", 10);
+            request.AddParameter("page", 2);
+            ExecuteMovieRequestRequest(request, callback);
+        }
+
+        private void ExecuteMovieRequestRequest(RestRequest request, Action<MovieList> callback)
+        {
+            request.AddParameter("apikey", RottenKey);
             _restClient.ExecuteAsync<MovieList>(request, response =>
             {
-                if (response.ErrorException == null && callback != null)
+                if ((response.ErrorException == null || response.Content.Contains("error")) && callback != null)
                 {
                     callback(response.Data);
                 }

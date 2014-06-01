@@ -6,15 +6,25 @@ using CoinKeeper.Logic.IoCContainer;
 using RottenApi;
 using System.Net;
 using System.IO;
+using System.Threading;
+using System.Collections.Generic;
 
 namespace RottenTomatoes
 {
+
+    public enum MoviesType
+    {
+        Opening = 0,
+        BoxOffice = 1,
+        InTheaters = 2,
+    }
+
     public class BoxOfficeTableSource : UITableViewSource
     {
         public event Action<int> ReloadSectionNeeded = delegate {};
 
-        MovieList _openingMovies = null;
-        MovieList _boxMovies = null;
+
+        private SortedDictionary <MoviesType, MovieList> _movies = new SortedDictionary<MoviesType, MovieList>();
 
         public BoxOfficeTableSource()
         {
@@ -24,25 +34,34 @@ namespace RottenTomatoes
         {
             Container.Resolve<IServerApi>().GetOpeningThisWeek(movies =>
             {
-                _openingMovies = movies;
+                _movies.Add(MoviesType.Opening, movies);
                 ReloadSectionNeeded(0);
             });
 
             Container.Resolve<IServerApi>().GetBoxOfficeMovies(movies =>
             {
-                _boxMovies = movies;
+                _movies.Add(MoviesType.BoxOffice, movies);
+                ReloadSectionNeeded(0);
+            });
+
+            Container.Resolve<IServerApi>().GetAlsoInTheaters(movies =>
+            {
+                _movies.Add(MoviesType.InTheaters, movies);
                 ReloadSectionNeeded(0);
             });
         }
 
         public override int NumberOfSections(UITableView tableView)
         {
-            int sections = 0;
-            if (_openingMovies != null && _openingMovies.Movies.Count > 0)
-                sections++;
-            if (_boxMovies != null && _boxMovies.Movies.Count > 0)
-                sections++;
-            return sections;
+            return _movies.Count;
+        }
+
+
+        public override int RowsInSection(UITableView tableview, int section)
+        {
+            if (_movies.ContainsKey((MoviesType)section))
+                return _movies[(MoviesType)section].Movies.Count;
+            return 0;
         }
 
         public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
@@ -54,31 +73,8 @@ namespace RottenTomatoes
         {
             BoxOfficeTableCell cell = (BoxOfficeTableCell)tableView.DequeueReusableCell(BoxOfficeTableCell.CellId, indexPath);
 
-            switch (indexPath.Section)
-            {
-                case 0:
-                    cell.UpdateCell(_openingMovies.Movies[indexPath.Row]);
-                    break;
-                case 1:
-                    cell.UpdateCell(_boxMovies.Movies[indexPath.Row]);
-                    break;
-            }
+            cell.UpdateCell(_movies[(MoviesType)indexPath.Section].Movies[indexPath.Row]);
             return cell;
-        }
-
-        public override int RowsInSection(UITableView tableview, int section)
-        {
-            switch (section)
-            {
-                case 0: 
-                    return 2;
-                case 1: 
-                    return 5;
-                case 2: 
-                    return 10;
-                default:
-                    return 0;
-            }
         }
 
         public override float GetHeightForHeader(UITableView tableView, int section)
