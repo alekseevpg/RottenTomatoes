@@ -32,6 +32,22 @@ namespace RottenApi
         public List<Actor> AbridgedCast { get; set; }
 
         public ReleaseDates ReleaseDates { get; set; }
+
+        public string GetFormattedRuntime()
+        {
+            return string.Format("{0}hr. {1}min.", Runtime / 60, Runtime % 60);
+        }
+
+        public string GetFormattedCast()
+        {
+            if (AbridgedCast.Count != 0)
+            {
+                return AbridgedCast.Count == 1 ?
+                    AbridgedCast[0].Name :
+                    string.Format("{0}, {1}", AbridgedCast[0].Name, AbridgedCast[1].Name);
+            }
+            return string.Empty;
+        }
     }
 
     public class Posters
