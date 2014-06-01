@@ -21,7 +21,7 @@ namespace RottenTomatoes
 
     public class MoviesTableSource : UITableViewSource
     {
-        public event Action<int> ReloadSectionNeeded = delegate {};
+        public event Action ReloadSectionNeeded = delegate {};
         public event Action<Movie> MovieSelected = delegate {};
 
         private SortedDictionary <MoviesType, MovieList> _movies = new SortedDictionary<MoviesType, MovieList>();
@@ -30,25 +30,37 @@ namespace RottenTomatoes
         {
         }
 
-        public void InitSource()
+        public void UpdateMovies(Action callback = null)
         {
             Container.Resolve<IServerApi>().GetOpeningThisWeek(movies =>
             {
-                _movies.Add(MoviesType.Opening, movies);
-                ReloadSectionNeeded(0);
+                UpdateMovieSection(MoviesType.Opening, movies);
+                if (callback != null)
+                    callback();
             });
 
             Container.Resolve<IServerApi>().GetBoxOfficeMovies(movies =>
             {
-                _movies.Add(MoviesType.BoxOffice, movies);
-                ReloadSectionNeeded(0);
+                UpdateMovieSection(MoviesType.BoxOffice, movies);
+                if (callback != null)
+                    callback();
             });
 
             Container.Resolve<IServerApi>().GetAlsoInTheaters(movies =>
             {
-                _movies.Add(MoviesType.InTheaters, movies);
-                ReloadSectionNeeded(0);
+                UpdateMovieSection(MoviesType.InTheaters, movies);
+                if (callback != null)
+                    callback();
             });
+        }
+
+        private void UpdateMovieSection(MoviesType type, MovieList movies)
+        {
+            if (_movies.ContainsKey(type))
+                _movies[type].Movies = movies.Movies;
+            else
+                _movies.Add(type, movies);
+            ReloadSectionNeeded();
         }
 
         public override int NumberOfSections(UITableView tableView)

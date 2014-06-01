@@ -4,6 +4,7 @@ using System.Drawing;
 using RottenApi;
 using CoinKeeper.Logic.IoCContainer;
 using MonoTouch.Foundation;
+using System.Threading;
 
 namespace RottenTomatoes
 {
@@ -20,7 +21,7 @@ namespace RottenTomatoes
             EdgesForExtendedLayout = UIRectEdge.None;
 
             _tableSource = new MoviesTableSource();
-            _tableSource.ReloadSectionNeeded += section => InvokeOnMainThread(_table.ReloadData);
+            _tableSource.ReloadSectionNeeded += () => InvokeOnMainThread(_table.ReloadData);
             _tableSource.MovieSelected += movie =>
             {
                 if (_movieController == null)
@@ -28,7 +29,7 @@ namespace RottenTomatoes
                 _movieController.InitWithMovie(movie);
                 NavigationController.PushViewController(_movieController, true);
             };
-            _tableSource.InitSource();
+            _tableSource.UpdateMovies();
             _table = new UITableView(new RectangleF(0, 20, 320, 460 + Device.PhoneHeightOffset), UITableViewStyle.Plain);
             _table.RegisterClassForCellReuse(typeof(BoxOfficeTableCell), BoxOfficeTableCell.CellId); 
             _table.BackgroundColor = UIColor.Clear;
@@ -36,6 +37,23 @@ namespace RottenTomatoes
 
             View.BackgroundColor = UIColor.FromRGB(66, 117, 2);
             View.Add(_table);
+            UIRefreshControl refreshControl = new UIRefreshControl();
+            refreshControl.TintColor = UIColor.White;
+            refreshControl.AttributedTitle = new NSAttributedString("Pull to refresh", foregroundColor: UIColor.White);
+            refreshControl.AddTarget((sender, e) =>
+            {
+                refreshControl.AttributedTitle = new NSAttributedString("Fetching movies", foregroundColor: UIColor.White);
+
+                _tableSource.UpdateMovies(() => InvokeOnMainThread(() =>
+                {
+                    refreshControl.AttributedTitle = new NSAttributedString("Pull to refresh", foregroundColor: UIColor.White);
+                    refreshControl.EndRefreshing();
+                }));
+
+
+            }, UIControlEvent.ValueChanged);
+            _table.Add(refreshControl);
+
         }
 
         public override void ViewWillAppear(bool animated)
