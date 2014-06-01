@@ -101,14 +101,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="BoxOfficeViewController.cs" />
     <Compile Include="Device.cs" />
-    <Compile Include="BoxOfficeTableSource.cs" />
     <Compile Include="IoCContainer\Container.cs" />
     <Compile Include="IoCContainer\IContainerAdapter.cs" />
     <Compile Include="IoCContainer\TinyIoC.cs" />
     <Compile Include="IoCContainer\TinyIocAdapter.cs" />
     <Compile Include="Images.cs" />
+    <Compile Include="MainViewController.cs" />
+    <Compile Include="MoviesTableSource.cs" />
+    <Compile Include="MovieViewController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

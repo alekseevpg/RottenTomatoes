@@ -19,14 +19,14 @@ namespace RottenTomatoes
         InTheaters = 2,
     }
 
-    public class BoxOfficeTableSource : UITableViewSource
+    public class MoviesTableSource : UITableViewSource
     {
         public event Action<int> ReloadSectionNeeded = delegate {};
-
+        public event Action<Movie> MovieSelected = delegate {};
 
         private SortedDictionary <MoviesType, MovieList> _movies = new SortedDictionary<MoviesType, MovieList>();
 
-        public BoxOfficeTableSource()
+        public MoviesTableSource()
         {
         }
 
@@ -55,7 +55,6 @@ namespace RottenTomatoes
         {
             return _movies.Count;
         }
-
 
         public override int RowsInSection(UITableView tableview, int section)
         {
@@ -111,18 +110,18 @@ namespace RottenTomatoes
             header.Add(headerLabel);
             return header;
         }
+
+        public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
+        {
+            MovieSelected(_movies[(MoviesType)indexPath.Section].Movies[indexPath.Row]);
+        }
     }
 
     public class BoxOfficeTableCell : UITableViewCell
     {
         public static readonly NSString CellId = new NSString("BoxOfficeTableCell");
-        private UIImageView _thumbnailView;
-        private UILabel _titleLbl;
-        UIImageView _freshView;
-        UILabel _ratingLbl;
-        UILabel _actorsLbl;
-        UILabel _timingLbl;
-        UILabel _releaseLbl;
+        private UIImageView _thumbnailView, _freshView;
+        private UILabel _titleLbl, _ratingLbl, _actorsLbl, _timingLbl, _releaseLbl;
 
         public BoxOfficeTableCell(IntPtr handle)
             : base(handle)
@@ -196,6 +195,8 @@ namespace RottenTomatoes
             switch (movie.Ratings.CriticsRating)
             {
                 case "Certified Fresh":
+                    _freshView.Image = Images.Get("Content/CF_300x300.png");
+                    break;
                 case "Fresh":
                     _freshView.Image = Images.Get("Content/fresh.png");
                     break;
@@ -217,7 +218,7 @@ namespace RottenTomatoes
                     : string.Format("{0}, {1}", movie.AbridgedCast[0].Name, movie.AbridgedCast[1].Name);
             }
 
-            _timingLbl.Text = string.Format("{0}, {1}", movie.MpaaRating, movie.Runtime);
+            _timingLbl.Text = string.Format("{0}, {1}hr. {2}min.", movie.MpaaRating, movie.Runtime / 60, movie.Runtime % 60);
 
             _releaseLbl.Text = movie.ReleaseDates.Theater.ToShortDateString();
 
