@@ -116,6 +116,7 @@
     <Compile Include="Helpers\Device.cs" />
     <Compile Include="Enums\MoviesType.cs" />
     <Compile Include="MovieTableCell.cs" />
+    <Compile Include="MovieInfoTableCell.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
