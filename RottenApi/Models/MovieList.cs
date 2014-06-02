@@ -55,6 +55,31 @@ namespace RottenApi
         public List<string> Genres { get; set; }
 
         public string CriticsConsensus { get; set; }
+
+        public string Synopsis { get; set; }
+
+        public List<Human> AbridgedDirectors { get; set; }
+
+        public string GetFormattedDirector()
+        {
+            if (AbridgedDirectors.Count != 0)
+            {
+                return AbridgedDirectors.Count == 1 ?
+                    AbridgedDirectors[0].Name :
+                    string.Format("{0}, {1}", AbridgedDirectors[0].Name, AbridgedDirectors[1].Name);
+            }
+            return string.Empty;
+        }
+
+        public string GetFormattedGenres()
+        {
+            string output = "";
+            foreach (var genre in Genres)
+            {
+                output += string.Format("{0}, ", genre);
+            }
+            return output;
+        }
     }
 
     public class Posters
@@ -71,16 +96,37 @@ namespace RottenApi
         public string CriticsScore { get; set; }
     }
 
-    public class Actor
+    public class Human
     {
         public string Name { get; set; }
+    }
 
+    public class Actor : Human
+    {
         public List<string> Characters { get; set; }
     }
 
     public class ReleaseDates
     {
         public DateTime Theater { get; set; }
+
+        public DateTime Dvd { get; set; }
+
+        public string GetFormattedTheaterDate()
+        {
+            if (Theater == DateTime.MinValue)
+                return "Not available";
+            else
+                return Theater.ToString("MMM, yyyy");
+        }
+
+        public string GetFormattedDvdDate()
+        {
+            if (Dvd == DateTime.MinValue)
+                return "Not available";
+            else
+                return Dvd.ToString("MMM, yyyy");
+        }
     }
 }
 

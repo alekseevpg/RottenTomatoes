@@ -50,7 +50,6 @@ namespace RottenTomatoes
                     refreshControl.EndRefreshing();
                 }));
 
-
             }, UIControlEvent.ValueChanged);
             _table.Add(refreshControl);
 

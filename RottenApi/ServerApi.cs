@@ -12,6 +12,9 @@ namespace RottenApi
         void GetOpeningThisWeek(Action<MovieList> callback);
 
         void GetAlsoInTheaters(Action<MovieList> callback);
+
+        void GetMovieInfo(string id, Action<MovieInfo> callback);
+
     }
 
     public class ServerApi : IServerApi
@@ -46,12 +49,12 @@ namespace RottenApi
             ExecuteMovieRequestRequest(request, callback);
         }
 
-        public void GetMovieInfo(string id, Action callback)
+        public void GetMovieInfo(string id, Action<MovieInfo> callback)
         {
-            var request = new RestRequest(string.Format("lists/movies/{0}.json", id));
+            var request = new RestRequest(string.Format("movies/{0}.json", id));
 
             request.AddParameter("apikey", RottenKey);
-            _restClient.ExecuteAsync<MovieList>(request, response =>
+            _restClient.ExecuteAsync<MovieInfo>(request, response =>
             {
                 if ((response.ErrorException == null || response.Content.Contains("error")) && callback != null)
                 {

@@ -26,7 +26,7 @@ namespace RottenTomatoes
             _thumbnailView = new UIImageView(new RectangleF(0, 0, 60, 90));
             Add(_thumbnailView);
 
-            _titleLbl = new UILabel(new RectangleF(65, 5, 255, 15))
+            _titleLbl = new UILabel(new RectangleF(65, 5, 255, 17))
             {
                 AdjustsFontSizeToFitWidth = true,
                 Font = UIFont.FromName("HelveticaNeue-Bold", 15),

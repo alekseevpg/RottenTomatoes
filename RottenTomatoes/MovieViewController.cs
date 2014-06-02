@@ -3,10 +3,11 @@ using MonoTouch.UIKit;
 using RottenApi;
 using System.Drawing;
 using MonoTouch.Foundation;
+using CoinKeeper.Logic.IoCContainer;
 
 namespace RottenTomatoes
 {
-    public class MovieViewController : UITableViewController
+    public class MovieViewController : UIViewController
     {
         private Movie _movie;
 
@@ -16,6 +17,12 @@ namespace RottenTomatoes
 
         MovieTableSource _movieSource;
 
+        UIActivityIndicatorView _progressView;
+
+        UITableView _table;
+
+        UIView _stabView;
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
@@ -24,19 +31,40 @@ namespace RottenTomatoes
             NavigationController.NavigationBar.SetTitleTextAttributes(new UITextAttributes(){ TextColor = UIColor.White });
             View.BackgroundColor = UIColor.White;
 
-            _movieSource = new MovieTableSource();
-            TableView.Source = _movieSource;
-
-            TableView.RegisterClassForCellReuse(typeof(MovieTableCell), MovieTableCell.CellId);
-
+            _table = new UITableView(new RectangleF(0, 0, 320, 416 + Device.PhoneHeightOffset));
+            _table.RegisterClassForCellReuse(typeof(MovieTableCell), MovieTableCell.CellId);
+            _table.RegisterClassForCellReuse(typeof(MovieInfoTableCell), MovieInfoTableCell.CellId);
+            Add(_table);
+            _stabView = new UIView(new RectangleF(0, 0, 320, 416 + Device.PhoneHeightOffset))
+            {
+                BackgroundColor = UIColor.FromWhiteAlpha(1, 0.7f),
+            };
+            _progressView = new UIActivityIndicatorView(new RectangleF(0, 0, 320, 416 + Device.PhoneHeightOffset));
+            _progressView.Color = UIColor.Red;
+            _stabView.Add(_progressView);
+            Add(_stabView);
         }
 
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
+            _table.Hidden = true;
             NavigationController.SetNavigationBarHidden(false, true);
             Title = _movie.Title;
-            _movieSource.UpdateSource(_movie);
+            _progressView.StartAnimating();
+            Container.Resolve<IServerApi>().GetMovieInfo(_movie.Id, mi =>
+            {
+                InvokeOnMainThread(() =>
+                {
+                    _movieSource = new MovieTableSource();
+                    _table.Source = _movieSource;
+                    _movieSource.UpdateMovie(_movie, mi);
+                    _table.ReloadData();
+                    _table.Hidden = false;
+                    _stabView.Hidden = true;
+                    _progressView.StopAnimating();
+                });
+            });
         }
 
         public void InitWithMovie(Movie movie)
@@ -47,10 +75,13 @@ namespace RottenTomatoes
 
     public class MovieTableSource : UITableViewSource
     {
-        private Movie _movie;
 
-        public void UpdateSource(Movie movie)
+        private Movie _movie;
+        private MovieInfo _mInfo;
+
+        public void UpdateMovie(Movie movie, MovieInfo mInfo)
         {
+            _mInfo = mInfo;
             _movie = movie;
         }
 
@@ -65,6 +96,8 @@ namespace RottenTomatoes
             {
                 case 0:
                     return 1;
+                case 1:
+                    return 1;
                 default:
                     return 5;
             }
@@ -76,6 +109,8 @@ namespace RottenTomatoes
             {
                 case 0:
                     return 90.5f;
+                case 1:
+                    return 280;
                 default:
                     return 50;
             }
@@ -89,6 +124,10 @@ namespace RottenTomatoes
                     MovieTableCell movieCell = (MovieTableCell)tableView.DequeueReusableCell(MovieTableCell.CellId);
                     movieCell.UpdateCell(_movie);
                     return movieCell;
+                case 1:
+                    MovieInfoTableCell mInfoCell = (MovieInfoTableCell)tableView.DequeueReusableCell(MovieInfoTableCell.CellId);
+                    mInfoCell.UpdateCell(_movie, _mInfo);
+                    return mInfoCell;
                 default:
                     return new UITableViewCell();
             }
