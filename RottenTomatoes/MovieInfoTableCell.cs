@@ -15,45 +15,62 @@ namespace RottenTomatoes
     public class MovieInfoTableCell : UITableViewCell
     {
         public static readonly NSString CellId = new NSString("MovieInfoTableCell");
-        private UILabel _synopsisLbl, _directorLbl, _ratedLbl, _runningTime, _genreLbl, _dvdLbl, _theatresLbl;
+
+        private MovieInfoView _view;
 
         public MovieInfoTableCell(IntPtr handle)
             : base(handle)
         {
             SelectionStyle = UITableViewCellSelectionStyle.None;
             SeparatorInset = new UIEdgeInsets(0, 0, 0, 0);
-
-            _synopsisLbl = CreateLabel(new RectangleF(5, 0, 315, 130));
-            _synopsisLbl.AdjustsFontSizeToFitWidth = false;
-            _synopsisLbl.Lines = 7;
-
-//            var showMoreBtn = new UIButton(new RectangleF(5, 295, 315, 20));
-//            showMoreBtn.BackgroundColor = UIColor.Red;
-//            showMoreBtn.SetTitle("More..", UIControlState.Normal);
-//            showMoreBtn.SetTitleColor(UIColor.Blue, UIControlState.Normal);
-//            showMoreBtn.TouchUpInside += (sender, e) =>
-//            {
-//
-//            };
-//            Add(showMoreBtn);
-//            BringSubviewToFront(showMoreBtn);
-
-            _directorLbl = CreateLabel(new RectangleF(5, 135, 315, 20));
-
-            _ratedLbl = CreateLabel(new RectangleF(5, 155, 255, 20));
-
-            _runningTime = CreateLabel(new RectangleF(5, 175, 255, 20));
-
-            _genreLbl = CreateLabel(new RectangleF(5, 195, 255, 20));
-
-            _theatresLbl = CreateLabel(new RectangleF(5, 215, 255, 20));
-
-            _dvdLbl = CreateLabel(new RectangleF(5, 235, 255, 20));
         }
 
-        public void UpdateCell(Movie movie, MovieInfo mInfo)
+        public void UpdateCell(MovieInfoView view)
         {
+            if (_view != null)
+            {
+                _view.RemoveFromSuperview();
+                _view.Dispose();
+                _view = null;
+            }
+            _view = view;
+            Add(_view);
+        }
+    }
+
+    public class MovieInfoView : UIView
+    {
+        private UILabel _synopsisLbl, _directorLbl, _ratedLbl, _runningTime, _genreLbl, _dvdLbl, _theatresLbl;
+
+        public float Height
+        {
+            get
+            {
+                return _synopsisLbl.Frame.Height + _directorLbl.Frame.Height + _ratedLbl.Frame.Height + _runningTime.Frame.Height + _genreLbl.Frame.Height
+                + _dvdLbl.Frame.Height + _theatresLbl.Frame.Height + 10;
+            }
+        }
+
+        public MovieInfoView(Movie movie, MovieInfo mInfo)
+        {
+            _synopsisLbl = CreateLabel(new RectangleF(5, 0, 315, 130));
+            _synopsisLbl.AdjustsFontSizeToFitWidth = false;
+            _synopsisLbl.Lines = 1000;
+
             UpdateText(_synopsisLbl, string.Format("Synopsis: {0}", mInfo.Synopsis), 10);
+            _synopsisLbl.SizeToFit();
+
+            _directorLbl = CreateLabel(new RectangleF(5, _synopsisLbl.Frame.Bottom + 5, 315, 20));
+
+            _ratedLbl = CreateLabel(new RectangleF(5, _directorLbl.Frame.Bottom + 5, 255, 20));
+
+            _runningTime = CreateLabel(new RectangleF(5, _ratedLbl.Frame.Bottom + 5, 255, 20));
+
+            _genreLbl = CreateLabel(new RectangleF(5, _runningTime.Frame.Bottom + 5, 255, 20));
+
+            _theatresLbl = CreateLabel(new RectangleF(5, _genreLbl.Frame.Bottom + 5, 255, 20));
+
+            _dvdLbl = CreateLabel(new RectangleF(5, _theatresLbl.Frame.Bottom + 5, 255, 20));
 
             UpdateText(_directorLbl, string.Format("Director: {0}", mInfo.GetFormattedDirector()), 10);
 
@@ -65,7 +82,7 @@ namespace RottenTomatoes
 
             UpdateText(_theatresLbl, string.Format("Theater Release: {0}", movie.ReleaseDates.GetFormattedTheaterDate()), 16);
 
-            UpdateText(_dvdLbl, string.Format("DVD Release: {0}", movie.ReleaseDates.GetFormattedDvdDate), 12);
+            UpdateText(_dvdLbl, string.Format("DVD Release: {0}", movie.ReleaseDates.GetFormattedDvdDate()), 12);
         }
 
         private UILabel CreateLabel(RectangleF frame)

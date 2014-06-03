@@ -34,6 +34,7 @@ namespace RottenTomatoes
             _table = new UITableView(new RectangleF(0, 0, 320, 416 + Device.PhoneHeightOffset));
             _table.RegisterClassForCellReuse(typeof(MovieTableCell), MovieTableCell.CellId);
             _table.RegisterClassForCellReuse(typeof(MovieInfoTableCell), MovieInfoTableCell.CellId);
+            _table.BackgroundColor = UIColor.Red;
             Add(_table);
             _stabView = new UIView(new RectangleF(0, 0, 320, 416 + Device.PhoneHeightOffset))
             {
@@ -75,14 +76,16 @@ namespace RottenTomatoes
 
     public class MovieTableSource : UITableViewSource
     {
-
         private Movie _movie;
         private MovieInfo _mInfo;
+        private MovieInfoView _mInfoView;
 
         public void UpdateMovie(Movie movie, MovieInfo mInfo)
         {
             _mInfo = mInfo;
             _movie = movie;
+            _mInfoView = new MovieInfoView(movie, mInfo);
+            _mInfoView.SizeToFit();
         }
 
         public override int NumberOfSections(UITableView tableView)
@@ -110,7 +113,7 @@ namespace RottenTomatoes
                 case 0:
                     return 90.5f;
                 case 1:
-                    return 280;
+                    return _mInfoView.Height;
                 default:
                     return 50;
             }
@@ -126,7 +129,7 @@ namespace RottenTomatoes
                     return movieCell;
                 case 1:
                     MovieInfoTableCell mInfoCell = (MovieInfoTableCell)tableView.DequeueReusableCell(MovieInfoTableCell.CellId);
-                    mInfoCell.UpdateCell(_movie, _mInfo);
+                    mInfoCell.UpdateCell(_mInfoView);
                     return mInfoCell;
                 default:
                     return new UITableViewCell();
