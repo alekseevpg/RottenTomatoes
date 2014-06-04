@@ -135,5 +135,28 @@ namespace RottenApi
                 return Dvd.ToString("MMM, yyyy");
         }
     }
+
+    public class Reviews
+    {
+        public List<Review> ReviewList { get; set; }
+    }
+
+    public class Review
+    {
+        public string Critic { get; set; }
+
+        public string Freshness { get; set; }
+
+        public string Publication { get; set; }
+
+        public string Quote { get; set; }
+
+        public Link Link { get; set; }
+    }
+
+    public class Link
+    {
+        public string Review { get; set; }
+    }
 }
 

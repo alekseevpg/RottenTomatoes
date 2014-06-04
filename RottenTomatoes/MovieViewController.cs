@@ -4,6 +4,7 @@ using RottenApi;
 using System.Drawing;
 using MonoTouch.Foundation;
 using CoinKeeper.Logic.IoCContainer;
+using RottenTomatoes.TableCells;
 
 namespace RottenTomatoes
 {
@@ -35,7 +36,7 @@ namespace RottenTomatoes
             _table.RegisterClassForCellReuse(typeof(MovieTableCell), MovieTableCell.CellId);
             _table.RegisterClassForCellReuse(typeof(MovieInfoTableCell), MovieInfoTableCell.CellId);
             _table.RegisterClassForCellReuse(typeof(ActorTableCell), ActorTableCell.CellId);
-            _table.BackgroundColor = UIColor.Red;
+            _table.BackgroundColor = UIColor.White;
             Add(_table);
 
             _stabView = new UIView(new RectangleF(0, 0, 320, 416 + Device.PhoneHeightOffset))
@@ -73,6 +74,15 @@ namespace RottenTomatoes
                     TryShowTable();
                 });
             });
+
+            Container.Resolve<IServerApi>().GetMovieReviews(_movie.Id, reviews =>
+            {
+                InvokeOnMainThread(() =>
+                {
+                    _movieSource.UpdateMovieReviews(reviews);
+                    TryShowTable();
+                });
+            });
         }
 
         public void InitWithMovie(Movie movie)
@@ -101,12 +111,13 @@ namespace RottenTomatoes
         private Movie _movie;
         private MovieInfoView _mInfoView;
         private MovieCast _cast;
+        private Reviews _reviews;
 
         public bool IsSourceLoaded
         {
             get
             {
-                if (_movie != null && _mInfoView != null && _cast != null)
+                if (_movie != null && _mInfoView != null && _cast != null && _reviews != null)
                     return true;
                 return false;
             }
@@ -128,6 +139,11 @@ namespace RottenTomatoes
             _cast = cast;
         }
 
+        public void UpdateMovieReviews(Reviews reviews)
+        {
+            _reviews = reviews;
+        }
+
         public override int NumberOfSections(UITableView tableView)
         {
             return 4;
@@ -143,6 +159,8 @@ namespace RottenTomatoes
                     return 1;
                 case 2:
                     return _cast.Cast.Count;
+                case 3:
+                    return _reviews.ReviewList.Count;
                 default:
                     return 5;
             }
