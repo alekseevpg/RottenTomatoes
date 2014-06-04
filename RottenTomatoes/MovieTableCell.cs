@@ -14,7 +14,7 @@ namespace RottenTomatoes
 
     public class MovieTableCell : UITableViewCell
     {
-        public static readonly NSString CellId = new NSString("BoxOfficeTableCell");
+        public static readonly NSString CellId = new NSString("MovieTableCell");
         private UIImageView _thumbnailView, _freshView;
         private UILabel _titleLbl, _ratingLbl, _actorsLbl, _timingLbl, _releaseLbl;
 

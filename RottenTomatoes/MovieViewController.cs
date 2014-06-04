@@ -31,11 +31,13 @@ namespace RottenTomatoes
             NavigationController.NavigationBar.SetTitleTextAttributes(new UITextAttributes(){ TextColor = UIColor.White });
             View.BackgroundColor = UIColor.White;
 
-            _table = new UITableView(new RectangleF(0, 0, 320, 416 + Device.PhoneHeightOffset));
+            _table = new UITableView(new RectangleF(0, 0, 320, 480 + Device.PhoneHeightOffset));
             _table.RegisterClassForCellReuse(typeof(MovieTableCell), MovieTableCell.CellId);
             _table.RegisterClassForCellReuse(typeof(MovieInfoTableCell), MovieInfoTableCell.CellId);
+            _table.RegisterClassForCellReuse(typeof(ActorTableCell), ActorTableCell.CellId);
             _table.BackgroundColor = UIColor.Red;
             Add(_table);
+
             _stabView = new UIView(new RectangleF(0, 0, 320, 416 + Device.PhoneHeightOffset))
             {
                 BackgroundColor = UIColor.FromWhiteAlpha(1, 0.7f),
@@ -53,17 +55,22 @@ namespace RottenTomatoes
             NavigationController.SetNavigationBarHidden(false, true);
             Title = _movie.Title;
             _progressView.StartAnimating();
-            Container.Resolve<IServerApi>().GetMovieInfo(_movie.Id, mi =>
+            _movieSource = new MovieTableSource(_movie);
+            Container.Resolve<IServerApi>().GetMovieInfo(_movie.Id, mInfo =>
             {
                 InvokeOnMainThread(() =>
                 {
-                    _movieSource = new MovieTableSource();
-                    _table.Source = _movieSource;
-                    _movieSource.UpdateMovie(_movie, mi);
-                    _table.ReloadData();
-                    _table.Hidden = false;
-                    _stabView.Hidden = true;
-                    _progressView.StopAnimating();
+                    _movieSource.UpdateMovieInfo(mInfo);
+                    TryShowTable();
+                });
+            });
+
+            Container.Resolve<IServerApi>().GetMovieCast(_movie.Id, cast =>
+            {
+                InvokeOnMainThread(() =>
+                {
+                    _movieSource.UpdateMovieCast(cast);
+                    TryShowTable();
                 });
             });
         }
@@ -72,20 +79,53 @@ namespace RottenTomatoes
         {
             _movie = movie;
         }
+
+        private void TryShowTable()
+        {
+            if (_movieSource.IsSourceLoaded)
+            {
+                InvokeOnMainThread(() =>
+                {
+                    _progressView.StopAnimating();
+                    _table.Source = _movieSource;
+                    _table.ReloadData();
+                    _table.Hidden = false;
+                    _stabView.Hidden = true;
+                });
+            }
+        }
     }
 
     public class MovieTableSource : UITableViewSource
     {
         private Movie _movie;
-        private MovieInfo _mInfo;
         private MovieInfoView _mInfoView;
+        private MovieCast _cast;
 
-        public void UpdateMovie(Movie movie, MovieInfo mInfo)
+        public bool IsSourceLoaded
         {
-            _mInfo = mInfo;
+            get
+            {
+                if (_movie != null && _mInfoView != null && _cast != null)
+                    return true;
+                return false;
+            }
+        }
+
+        public MovieTableSource(Movie movie)
+        {
             _movie = movie;
-            _mInfoView = new MovieInfoView(movie, mInfo);
+        }
+
+        public void UpdateMovieInfo(MovieInfo mInfo)
+        {
+            _mInfoView = new MovieInfoView(_movie, mInfo);
             _mInfoView.SizeToFit();
+        }
+
+        public void UpdateMovieCast(MovieCast cast)
+        {
+            _cast = cast;
         }
 
         public override int NumberOfSections(UITableView tableView)
@@ -101,6 +141,8 @@ namespace RottenTomatoes
                     return 1;
                 case 1:
                     return 1;
+                case 2:
+                    return _cast.Cast.Count;
                 default:
                     return 5;
             }
@@ -114,6 +156,7 @@ namespace RottenTomatoes
                     return 90.5f;
                 case 1:
                     return _mInfoView.Height;
+                case 2:
                 default:
                     return 50;
             }
@@ -128,9 +171,13 @@ namespace RottenTomatoes
                     movieCell.UpdateCell(_movie);
                     return movieCell;
                 case 1:
-                    MovieInfoTableCell mInfoCell = (MovieInfoTableCell)tableView.DequeueReusableCell(MovieInfoTableCell.CellId);
-                    mInfoCell.UpdateCell(_mInfoView);
-                    return mInfoCell;
+                    MovieInfoTableCell infoCell = (MovieInfoTableCell)tableView.DequeueReusableCell(MovieInfoTableCell.CellId);
+                    infoCell.UpdateCell(_mInfoView);
+                    return infoCell;
+                case 2:
+                    ActorTableCell actorCell = (ActorTableCell)tableView.DequeueReusableCell(ActorTableCell.CellId);
+                    actorCell.UpdateActor(_cast.Cast[indexPath.Row]);
+                    return actorCell;
                 default:
                     return new UITableViewCell();
             }

@@ -15,6 +15,8 @@ namespace RottenApi
 
         void GetMovieInfo(string id, Action<MovieInfo> callback);
 
+        void GetMovieCast(string id, Action<MovieCast> callback);
+
     }
 
     public class ServerApi : IServerApi
@@ -55,6 +57,20 @@ namespace RottenApi
 
             request.AddParameter("apikey", RottenKey);
             _restClient.ExecuteAsync<MovieInfo>(request, response =>
+            {
+                if ((response.ErrorException == null || response.Content.Contains("error")) && callback != null)
+                {
+                    callback(response.Data);
+                }
+            });
+        }
+
+        public void GetMovieCast(string id, Action<MovieCast> callback)
+        {
+            var request = new RestRequest(string.Format("movies/{0}/cast.json", id));
+
+            request.AddParameter("apikey", RottenKey);
+            _restClient.ExecuteAsync<MovieCast>(request, response =>
             {
                 if ((response.ErrorException == null || response.Content.Contains("error")) && callback != null)
                 {

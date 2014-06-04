@@ -73,12 +73,7 @@ namespace RottenApi
 
         public string GetFormattedGenres()
         {
-            string output = "";
-            foreach (var genre in Genres)
-            {
-                output += string.Format("{0}, ", genre);
-            }
-            return output;
+            return string.Join(", ", Genres.ToArray());
         }
     }
 
@@ -103,7 +98,19 @@ namespace RottenApi
 
     public class Actor : Human
     {
+        public string Id { get; set; }
+
         public List<string> Characters { get; set; }
+
+        public string GetFormattedChars()
+        {
+            return string.Join(", ", Characters.ToArray());
+        }
+    }
+
+    public class MovieCast
+    {
+        public List<Actor> Cast { get; set; }
     }
 
     public class ReleaseDates
