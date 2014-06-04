@@ -117,6 +117,7 @@
     <Compile Include="Enums\MoviesType.cs" />
     <Compile Include="MovieTableCell.cs" />
     <Compile Include="MovieInfoTableCell.cs" />
+    <Compile Include="TableCells\ActorTableCell.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -125,6 +126,7 @@
     <Folder Include="Content\Icons\" />
     <Folder Include="Helpers\" />
     <Folder Include="Enums\" />
+    <Folder Include="TableCells\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RottenApi\RottenApi.csproj">
