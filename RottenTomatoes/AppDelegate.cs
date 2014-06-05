@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using MonoTouch.Foundation;
+﻿using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using CoinKeeper.Logic.IoCContainer;
 using TinyIoC;
@@ -36,8 +33,10 @@ namespace RottenTomatoes
 
             _navController = new UINavigationController(_mainController);
             window.RootViewController = _navController;
-			
-            // make the window visible
+#if DEBUG
+            Xamarin.Calabash.Start();
+#endif
+
             window.MakeKeyAndVisible();
 			
             return true;

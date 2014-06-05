@@ -1,10 +1,5 @@
-﻿using System;
-using MonoTouch.UIKit;
+﻿using MonoTouch.UIKit;
 using System.Drawing;
-using RottenApi;
-using CoinKeeper.Logic.IoCContainer;
-using MonoTouch.Foundation;
-using System.Threading;
 
 namespace RottenTomatoes
 {
@@ -33,20 +28,14 @@ namespace RottenTomatoes
             _table.RegisterClassForCellReuse(typeof(MovieTableCell), MovieTableCell.CellId); 
             _table.BackgroundColor = UIColor.Clear;
             _table.Source = _tableSource;
+            UIRefreshControl refreshControl = new UIRefreshControl();
+            refreshControl.TintColor = UIColor.White;
+            refreshControl.AddTarget((sender, e) => _tableSource.UpdateMovies(() =>
+                InvokeOnMainThread(refreshControl.EndRefreshing)), UIControlEvent.ValueChanged);
+            _table.Add(refreshControl);
 
             View.BackgroundColor = UIColor.FromRGB(66, 117, 2);
             View.Add(_table);
-            UIRefreshControl refreshControl = new UIRefreshControl();
-            refreshControl.TintColor = UIColor.White;
-            refreshControl.AddTarget((sender, e) =>
-            {
-                _tableSource.UpdateMovies(() => InvokeOnMainThread(() =>
-                {
-                    refreshControl.EndRefreshing();
-                }));
-            }, UIControlEvent.ValueChanged);
-            _table.Add(refreshControl);
-
         }
 
         public override void ViewWillAppear(bool animated)

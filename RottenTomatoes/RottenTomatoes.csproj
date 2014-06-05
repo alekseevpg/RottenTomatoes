@@ -91,6 +91,9 @@
     <Reference Include="RestSharp.MonoTouch">
       <HintPath>..\Components\restsharp-104.1.0\lib\ios\RestSharp.MonoTouch.dll</HintPath>
     </Reference>
+    <Reference Include="Calabash">
+      <HintPath>..\Components\calabash-1.169\lib\ios\Calabash.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h%402x.png" />
@@ -116,9 +119,10 @@
     <Compile Include="Helpers\Device.cs" />
     <Compile Include="Enums\MoviesType.cs" />
     <Compile Include="MovieTableCell.cs" />
-    <Compile Include="MovieInfoTableCell.cs" />
     <Compile Include="TableCells\ActorTableCell.cs" />
     <Compile Include="TableCells\ReviewTableCell.cs" />
+    <Compile Include="TableCells\MovieInfoTableCell.cs" />
+    <Compile Include="MovieTableSource.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -138,6 +142,11 @@
   <ItemGroup>
     <XamarinComponentReference Include="restsharp">
       <Version>104.1.0</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="calabash">
+      <InstallationInProgress>True</InstallationInProgress>
+      <Version>1.169</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>
