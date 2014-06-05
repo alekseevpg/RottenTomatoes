@@ -1,14 +1,11 @@
-using System;
 using MonoTouch.UIKit;
 using RottenApi;
 using System.Drawing;
 using MonoTouch.Foundation;
-using CoinKeeper.Logic.IoCContainer;
 using RottenTomatoes.TableCells;
 
 namespace RottenTomatoes
 {
-
     public class MovieTableSource : UITableViewSource
     {
         private Movie _movie;

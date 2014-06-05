@@ -5,6 +5,7 @@ using MonoTouch.Foundation;
 using CoinKeeper.Logic.IoCContainer;
 using RottenApi;
 using System.Collections.Generic;
+using RottenTomatoes.TableCells;
 
 namespace RottenTomatoes
 {

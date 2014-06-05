@@ -113,7 +113,6 @@
     <Compile Include="IoCContainer\TinyIoC.cs" />
     <Compile Include="IoCContainer\TinyIocAdapter.cs" />
     <Compile Include="MainViewController.cs" />
-    <Compile Include="MoviesTableSource.cs" />
     <Compile Include="MovieViewController.cs" />
     <Compile Include="Helpers\Images.cs" />
     <Compile Include="Helpers\Device.cs" />
@@ -122,7 +121,8 @@
     <Compile Include="TableCells\ActorTableCell.cs" />
     <Compile Include="TableCells\ReviewTableCell.cs" />
     <Compile Include="TableCells\MovieInfoTableCell.cs" />
-    <Compile Include="MovieTableSource.cs" />
+    <Compile Include="TableSources\MovieTableSource.cs" />
+    <Compile Include="TableSources\MoviesTableSource.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -132,6 +132,7 @@
     <Folder Include="Helpers\" />
     <Folder Include="Enums\" />
     <Folder Include="TableCells\" />
+    <Folder Include="TableSources\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RottenApi\RottenApi.csproj">
@@ -145,7 +146,6 @@
       <Visible>False</Visible>
     </XamarinComponentReference>
     <XamarinComponentReference Include="calabash">
-      <InstallationInProgress>True</InstallationInProgress>
       <Version>1.169</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>

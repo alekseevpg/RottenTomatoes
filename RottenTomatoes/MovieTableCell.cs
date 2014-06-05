@@ -2,16 +2,11 @@ using System;
 using MonoTouch.UIKit;
 using System.Drawing;
 using MonoTouch.Foundation;
-using CoinKeeper.Logic.IoCContainer;
 using RottenApi;
 using System.Net;
-using System.IO;
-using System.Threading;
-using System.Collections.Generic;
 
-namespace RottenTomatoes
+namespace RottenTomatoes.TableCells
 {
-
     public class MovieTableCell : UITableViewCell
     {
         public static readonly NSString CellId = new NSString("MovieTableCell");
@@ -37,37 +32,25 @@ namespace RottenTomatoes
             _freshView = new UIImageView(new RectangleF(65, 25, 15, 15));
             Add(_freshView);
 
-            _ratingLbl = new UILabel(new RectangleF(85, 25, 220, 15))
-            {
-                AdjustsFontSizeToFitWidth = true,
-                Font = UIFont.FromName("HelveticaNeue", 13),
-                TextColor = UIColor.Black,
-            };
-            Add(_ratingLbl);
+            _ratingLbl = CreateLabel(new RectangleF(85, 25, 220, 15));
 
-            _actorsLbl = new UILabel(new RectangleF(65, 40, 255, 15))
-            {
-                AdjustsFontSizeToFitWidth = true,
-                Font = UIFont.FromName("HelveticaNeue", 13),
-                TextColor = UIColor.Black,
-            };
-            Add(_actorsLbl);
+            _actorsLbl = CreateLabel(new RectangleF(65, 40, 255, 15));
 
-            _timingLbl = new UILabel(new RectangleF(65, 55, 255, 15))
-            {
-                AdjustsFontSizeToFitWidth = true,
-                Font = UIFont.FromName("HelveticaNeue", 13),
-                TextColor = UIColor.Black,
-            };
-            Add(_timingLbl);
+            _timingLbl = CreateLabel(new RectangleF(65, 55, 255, 15));
 
-            _releaseLbl = new UILabel(new RectangleF(65, 70, 255, 15))
+            _releaseLbl = CreateLabel(new RectangleF(65, 70, 255, 15));
+        }
+
+        private UILabel CreateLabel(RectangleF frame)
+        {
+            var label = new UILabel(frame)
             {
                 AdjustsFontSizeToFitWidth = true,
                 Font = UIFont.FromName("HelveticaNeue", 13),
                 TextColor = UIColor.Black,
             };
-            Add(_releaseLbl);
+            Add(label);
+            return label;
         }
 
         public void UpdateCell(Movie movie)

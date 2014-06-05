@@ -1,8 +1,6 @@
-﻿using System;
-using MonoTouch.UIKit;
+﻿using MonoTouch.UIKit;
 using RottenApi;
 using System.Drawing;
-using MonoTouch.Foundation;
 using CoinKeeper.Logic.IoCContainer;
 using RottenTomatoes.TableCells;
 
@@ -11,18 +9,15 @@ namespace RottenTomatoes
     public class MovieViewController : UIViewController
     {
         private Movie _movie;
+        private MovieTableSource _movieSource;
+        private UIActivityIndicatorView _progressView;
+        private UITableView _table;
+        private UIView _stabView;
 
-        public MovieViewController()
+        public void InitWithMovie(Movie movie)
         {
+            _movie = movie;
         }
-
-        MovieTableSource _movieSource;
-
-        UIActivityIndicatorView _progressView;
-
-        UITableView _table;
-
-        UIView _stabView;
 
         public override void ViewDidLoad()
         {
@@ -86,11 +81,6 @@ namespace RottenTomatoes
             });
         }
 
-        public void InitWithMovie(Movie movie)
-        {
-            _movie = movie;
-        }
-
         private void TryShowTable()
         {
             if (_movieSource.IsSourceLoaded)
@@ -106,6 +96,5 @@ namespace RottenTomatoes
             }
         }
     }
-
 }
 

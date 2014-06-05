@@ -1,5 +1,6 @@
 ﻿using MonoTouch.UIKit;
 using System.Drawing;
+using RottenTomatoes.TableCells;
 
 namespace RottenTomatoes
 {
