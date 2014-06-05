@@ -118,6 +118,7 @@
     <Compile Include="MovieTableCell.cs" />
     <Compile Include="MovieInfoTableCell.cs" />
     <Compile Include="TableCells\ActorTableCell.cs" />
+    <Compile Include="TableCells\ReviewTableCell.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
