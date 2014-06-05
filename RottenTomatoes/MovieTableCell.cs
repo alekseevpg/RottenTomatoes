@@ -103,10 +103,9 @@ namespace RottenTomatoes
             }
 
             _ratingLbl.Text = string.Format("{0}%", movie.Ratings.CriticsScore);
-            _actorsLbl.Text = string.Empty;
             _actorsLbl.Text = movie.GetFormattedCast();
             _timingLbl.Text = string.Format("{0}, {1}", movie.MpaaRating, movie.GetFormattedRuntime());
-            _releaseLbl.Text = movie.ReleaseDates.Theater.ToShortDateString();
+            _releaseLbl.Text = movie.ReleaseDates.GetFormattedTheaterDate();
         }
     }
 }

@@ -17,7 +17,7 @@ namespace RottenApi
 
         void GetMovieCast(string id, Action<MovieCast> callback);
 
-        void GetMovieReviews(string id, Action<Reviews> callback);
+        void GetMovieReviews(string id, Action<ReviewList> callback);
 
     }
 
@@ -81,12 +81,12 @@ namespace RottenApi
             });
         }
 
-        public void GetMovieReviews(string id, Action<Reviews> callback)
+        public void GetMovieReviews(string id, Action<ReviewList> callback)
         {
             var request = new RestRequest(string.Format("movies/{0}/reviews.json", id));
 
             request.AddParameter("apikey", RottenKey);
-            _restClient.ExecuteAsync<Reviews>(request, response =>
+            _restClient.ExecuteAsync<ReviewList>(request, response =>
             {
                 if ((response.ErrorException == null || response.Content.Contains("error")) && callback != null)
                 {

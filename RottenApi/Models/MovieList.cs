@@ -136,9 +136,9 @@ namespace RottenApi
         }
     }
 
-    public class Reviews
+    public class ReviewList
     {
-        public List<Review> ReviewList { get; set; }
+        public List<Review> Reviews { get; set; }
     }
 
     public class Review
@@ -151,7 +151,7 @@ namespace RottenApi
 
         public string Quote { get; set; }
 
-        public Link Link { get; set; }
+        public Link Links { get; set; }
     }
 
     public class Link

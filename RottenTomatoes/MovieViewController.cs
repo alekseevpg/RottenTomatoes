@@ -36,6 +36,7 @@ namespace RottenTomatoes
             _table.RegisterClassForCellReuse(typeof(MovieTableCell), MovieTableCell.CellId);
             _table.RegisterClassForCellReuse(typeof(MovieInfoTableCell), MovieInfoTableCell.CellId);
             _table.RegisterClassForCellReuse(typeof(ActorTableCell), ActorTableCell.CellId);
+            _table.RegisterClassForCellReuse(typeof(ReviewTableCell), ReviewTableCell.CellId);
             _table.BackgroundColor = UIColor.White;
             Add(_table);
 
@@ -111,7 +112,7 @@ namespace RottenTomatoes
         private Movie _movie;
         private MovieInfoView _mInfoView;
         private MovieCast _cast;
-        private Reviews _reviews;
+        private ReviewList _reviews;
 
         public bool IsSourceLoaded
         {
@@ -139,7 +140,7 @@ namespace RottenTomatoes
             _cast = cast;
         }
 
-        public void UpdateMovieReviews(Reviews reviews)
+        public void UpdateMovieReviews(ReviewList reviews)
         {
             _reviews = reviews;
         }
@@ -160,7 +161,7 @@ namespace RottenTomatoes
                 case 2:
                     return _cast.Cast.Count;
                 case 3:
-                    return _reviews.ReviewList.Count;
+                    return _reviews.Reviews.Count;
                 default:
                     return 5;
             }
@@ -174,7 +175,6 @@ namespace RottenTomatoes
                     return 90.5f;
                 case 1:
                     return _mInfoView.Height;
-                case 2:
                 default:
                     return 50;
             }
@@ -196,6 +196,11 @@ namespace RottenTomatoes
                     ActorTableCell actorCell = (ActorTableCell)tableView.DequeueReusableCell(ActorTableCell.CellId);
                     actorCell.UpdateActor(_cast.Cast[indexPath.Row]);
                     return actorCell;
+
+                case 3:
+                    ReviewTableCell reviewCell = (ReviewTableCell)tableView.DequeueReusableCell(ReviewTableCell.CellId);
+                    reviewCell.UpdateReview(_reviews.Reviews[indexPath.Row]);
+                    return reviewCell;
                 default:
                     return new UITableViewCell();
             }
@@ -236,6 +241,16 @@ namespace RottenTomatoes
             }
             header.Add(headerLabel);
             return header;
+        }
+
+        public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
+        {
+            switch (indexPath.Section == 3)
+            {
+                case 3:
+                    UIApplication.SharedApplication.OpenUrl(((ReviewTableCell)tableView.CellAt(indexPath)).ReviewUrl);
+                    break;
+            }
         }
     }
 }

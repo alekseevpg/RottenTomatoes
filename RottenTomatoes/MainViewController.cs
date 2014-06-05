@@ -24,8 +24,7 @@ namespace RottenTomatoes
             _tableSource.ReloadSectionNeeded += () => InvokeOnMainThread(_table.ReloadData);
             _tableSource.MovieSelected += movie =>
             {
-                if (_movieController == null)
-                    _movieController = new MovieViewController();
+                _movieController = new MovieViewController();
                 _movieController.InitWithMovie(movie);
                 NavigationController.PushViewController(_movieController, true);
             };
@@ -39,17 +38,12 @@ namespace RottenTomatoes
             View.Add(_table);
             UIRefreshControl refreshControl = new UIRefreshControl();
             refreshControl.TintColor = UIColor.White;
-            refreshControl.AttributedTitle = new NSAttributedString("Pull to refresh", foregroundColor: UIColor.White);
             refreshControl.AddTarget((sender, e) =>
             {
-                refreshControl.AttributedTitle = new NSAttributedString("Fetching movies", foregroundColor: UIColor.White);
-
                 _tableSource.UpdateMovies(() => InvokeOnMainThread(() =>
                 {
-                    refreshControl.AttributedTitle = new NSAttributedString("Pull to refresh", foregroundColor: UIColor.White);
                     refreshControl.EndRefreshing();
                 }));
-
             }, UIControlEvent.ValueChanged);
             _table.Add(refreshControl);
 
