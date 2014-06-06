@@ -69,6 +69,7 @@ namespace RottenTomatoes.TableCells
             };
             webClient.DownloadDataAsync(new Uri(movie.Posters.Profile));
             _titleLbl.Text = movie.Title;
+            AccessibilityLabel = movie.Ratings.CriticsRating;
             switch (movie.Ratings.CriticsRating)
             {
                 case "Certified Fresh":

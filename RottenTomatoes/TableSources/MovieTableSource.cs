@@ -30,6 +30,8 @@ namespace RottenTomatoes
 
         public void UpdateMovieInfo(MovieInfo mInfo)
         {
+            if (mInfo == null)
+                return;
             _mInfoView = new MovieInfoView(_movie, mInfo);
             _mInfoView.SizeToFit();
         }

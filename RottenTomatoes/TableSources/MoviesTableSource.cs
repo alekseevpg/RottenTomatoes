@@ -15,28 +15,60 @@ namespace RottenTomatoes
         public event Action<Movie> MovieSelected = delegate {};
 
         private SortedDictionary <MoviesType, MovieList> _movies = new SortedDictionary<MoviesType, MovieList>();
+        private UIAlertView _alert;
 
         public void UpdateMovies(Action callback = null)
         {
             Container.Resolve<IServerApi>().GetOpeningThisWeek(movies =>
             {
-                UpdateMovieSection(MoviesType.Opening, movies);
                 if (callback != null)
                     callback();
+                if (movies == null)
+                {
+                    ShowAlert();
+                    return;
+                }
+                UpdateMovieSection(MoviesType.Opening, movies);
             });
 
             Container.Resolve<IServerApi>().GetBoxOfficeMovies(movies =>
             {
-                UpdateMovieSection(MoviesType.BoxOffice, movies);
                 if (callback != null)
                     callback();
+                if (movies == null)
+                {
+                    ShowAlert();
+                    return;
+                }
+                UpdateMovieSection(MoviesType.BoxOffice, movies);
             });
 
             Container.Resolve<IServerApi>().GetAlsoInTheaters(movies =>
             {
-                UpdateMovieSection(MoviesType.InTheaters, movies);
                 if (callback != null)
                     callback();
+                if (movies == null)
+                {
+                    ShowAlert();
+                    return;
+                }
+                UpdateMovieSection(MoviesType.InTheaters, movies);
+            });
+        }
+
+        private void ShowAlert()
+        {
+            InvokeOnMainThread(() =>
+            {
+                if (_alert != null)
+                    return;
+                _alert = new UIAlertView("Error", "No data recieved. Pull to refresh.", null, "OK", null);
+                _alert.Dismissed += (sender, e) =>
+                {
+                    _alert.Dispose();
+                    _alert = null;
+                };
+                _alert.Show();
             });
         }
 
@@ -71,6 +103,7 @@ namespace RottenTomatoes
             MovieTableCell cell = (MovieTableCell)tableView.DequeueReusableCell(MovieTableCell.CellId, indexPath);
 
             cell.UpdateCell(_movies[(MoviesType)indexPath.Section].Movies[indexPath.Row]);
+            cell.AccessibilityLabel = string.Format("MovieCell-{0}-{1}", indexPath.Section, indexPath.Row);
             return cell;
         }
 
@@ -93,13 +126,13 @@ namespace RottenTomatoes
             switch (section)
             {
                 case 0: 
-                    headerLabel.Text = "Opening This Week";
+                    headerLabel.Text = headerLabel.AccessibilityLabel = "Opening This Week";
                     break;
                 case 1: 
-                    headerLabel.Text = "Top Box Office";
+                    headerLabel.Text = headerLabel.AccessibilityLabel = "Top Box Office";
                     break;
                 case 2: 
-                    headerLabel.Text = "Also in Theaters";
+                    headerLabel.Text = headerLabel.AccessibilityLabel = "Also in Theaters";
                     break;
                 default:
                     headerLabel.Text = "";
