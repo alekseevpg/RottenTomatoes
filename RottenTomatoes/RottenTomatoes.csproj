@@ -117,12 +117,12 @@
     <Compile Include="Helpers\Images.cs" />
     <Compile Include="Helpers\Device.cs" />
     <Compile Include="Enums\MoviesType.cs" />
-    <Compile Include="MovieTableCell.cs" />
     <Compile Include="TableCells\ActorTableCell.cs" />
     <Compile Include="TableCells\ReviewTableCell.cs" />
     <Compile Include="TableCells\MovieInfoTableCell.cs" />
     <Compile Include="TableSources\MovieTableSource.cs" />
     <Compile Include="TableSources\MoviesTableSource.cs" />
+    <Compile Include="TableCells\MovieTableCell.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
