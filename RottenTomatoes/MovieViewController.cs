@@ -1,8 +1,9 @@
 using UIKit;
 using RottenApi;
 using CoreGraphics;
-using CoinKeeper.Logic.IoCContainer;
 using RottenTomatoes.TableCells;
+using RottenTomatoes.Helpers;
+using RottenTomatoes.Helpers.IoCContainer;
 
 namespace RottenTomatoes
 {
@@ -24,7 +25,7 @@ namespace RottenTomatoes
             base.ViewDidLoad();
             NavigationController.NavigationBar.TintColor = UIColor.White;
             NavigationController.NavigationBar.BarTintColor = UIColor.FromRGB(207, 68, 0);
-            NavigationController.NavigationBar.SetTitleTextAttributes(new UITextAttributes(){ TextColor = UIColor.White });
+            //NavigationController.NavigationBar.s.SetTitleTextAttributes(new UITextAttributes(){ TextColor = UIColor.White });
             View.BackgroundColor = UIColor.White;
 
             _table = new UITableView(new CGRect(0, 0, 320, 480 + Device.PhoneHeightOffset));
@@ -97,4 +98,3 @@ namespace RottenTomatoes
         }
     }
 }
-

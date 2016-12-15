@@ -1,21 +1,41 @@
 ﻿<Properties StartupConfiguration="{5CB3310F-3A4B-4E17-9B02-893EB8AF713B}|Default">
-  <MonoDevelop.Ide.ItemProperties.RottenTomatoes PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="RottenApi/ServerApi.cs">
+  <MonoDevelop.Ide.ItemProperties.RottenTomatoes PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.FD8F084B-7ED5-495A-9163-1507180E4961" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="RottenTomatoes/AppDelegate.cs">
     <Files>
       <File FileName="RottenTomatoes/Enums/MoviesType.cs" Line="3" Column="22" />
       <File FileName="RottenTomatoes/Helpers/IoCContainer/TinyIocAdapter.cs" Line="12" Column="37" />
       <File FileName="RottenTomatoes/TableCells/ActorTableCell.cs" Line="40" Column="2" />
       <File FileName="RottenTomatoes/TableCells/MovieInfoTableCell.cs" Line="42" Column="14" />
-      <File FileName="RottenTomatoes/TableCells/MovieTableCell.cs" Line="13" Column="56" />
-      <File FileName="RottenTomatoes/TableCells/ReviewTableCell.cs" Line="1" Column="1" />
-      <File FileName="RottenTomatoes/TableSources/MoviesTableSource.cs" Line="151" Column="2" />
-      <File FileName="RottenTomatoes/TableSources/MovieTableSource.cs" Line="1" Column="1" />
-      <File FileName="RottenTomatoes/AppDelegate.cs" Line="39" Column="13" />
+      <File FileName="RottenTomatoes/TableCells/MovieTableCell.cs" Line="7" Column="38" />
+      <File FileName="RottenTomatoes/TableCells/ReviewTableCell.cs" Line="5" Column="18" />
+      <File FileName="RottenTomatoes/TableSources/MoviesTableSource.cs" Line="93" Column="49" />
+      <File FileName="RottenTomatoes/TableSources/MovieTableSource.cs" Line="60" Column="30" />
+      <File FileName="RottenTomatoes/AppDelegate.cs" Line="36" Column="1" />
       <File FileName="RottenApi/Models/MovieList.cs" Line="14" Column="2" />
-      <File FileName="RottenApi/ServerApi.cs" Line="19" Column="9" />
+      <File FileName="RottenApi/ServerApi.cs" Line="17" Column="10" />
+      <File FileName="RottenTomatoes/MovieViewController.cs" Line="24" Column="10" />
+      <File FileName="RottenTomatoes/MainViewController.cs" Line="29" Column="72" />
+      <File FileName="packages/RestSharp.105.2.3/readme.txt" Line="20" Column="1" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="RottenTomatoes" expanded="True">
+            <Node name="RottenApi" expanded="True">
+              <Node name="Packages" expanded="True" />
+            </Node>
+            <Node name="RottenTomatoes" expanded="True" selected="True">
+              <Node name="References" expanded="True" />
+              <Node name="Resources" expanded="True" />
+              <Node name="TableCells" expanded="True" />
+              <Node name="TableSources" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

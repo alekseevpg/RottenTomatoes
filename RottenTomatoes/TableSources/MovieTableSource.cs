@@ -3,6 +3,7 @@ using RottenApi;
 using CoreGraphics;
 using Foundation;
 using RottenTomatoes.TableCells;
+using System;
 
 namespace RottenTomatoes
 {
@@ -46,12 +47,12 @@ namespace RottenTomatoes
             _reviews = reviews;
         }
 
-        public override int NumberOfSections(UITableView tableView)
+        public override nint NumberOfSections(UITableView tableView)
         {
             return 4;
         }
 
-        public override int RowsInSection(UITableView tableview, int section)
+        public override nint RowsInSection(UITableView tableview, nint section)
         {
             switch (section)
             {
@@ -68,7 +69,7 @@ namespace RottenTomatoes
             }
         }
 
-        public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
+        public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
             switch (indexPath.Section)
             {
@@ -107,12 +108,12 @@ namespace RottenTomatoes
             }
         }
 
-        public override float GetHeightForHeader(UITableView tableView, int section)
+        public override nfloat GetHeightForHeader(UITableView tableView, nint section)
         {
             return section == 0 ? 0.0001f : 40;
         }
 
-        public override UIView GetViewForHeader(UITableView tableView, int section)
+        public override UIView GetViewForHeader(UITableView tableView, nint section)
         {
             if (section == 0)
                 return new UIView();

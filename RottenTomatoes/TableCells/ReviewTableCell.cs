@@ -3,6 +3,7 @@ using UIKit;
 using CoreGraphics;
 using RottenApi;
 using Foundation;
+using RottenTomatoes.Helpers.Helpers;
 
 namespace RottenTomatoes.TableCells
 {

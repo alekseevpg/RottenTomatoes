@@ -4,6 +4,7 @@ using CoreGraphics;
 using Foundation;
 using RottenApi;
 using System.Net;
+using RottenTomatoes.Helpers.Helpers;
 
 namespace RottenTomatoes.TableCells
 {

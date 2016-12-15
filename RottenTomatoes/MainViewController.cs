@@ -1,6 +1,7 @@
 using UIKit;
 using CoreGraphics;
 using RottenTomatoes.TableCells;
+using RottenTomatoes.Helpers;
 
 namespace RottenTomatoes
 {

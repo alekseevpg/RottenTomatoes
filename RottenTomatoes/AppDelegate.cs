@@ -33,9 +33,6 @@ namespace RottenTomatoes
 
             _navController = new UINavigationController(_mainController);
             window.RootViewController = _navController;
-#if DEBUG
-            Xamarin.Calabash.Start();
-#endif
 
             window.MakeKeyAndVisible();
 

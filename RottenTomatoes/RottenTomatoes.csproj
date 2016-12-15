@@ -21,9 +21,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchLink>None</MtouchLink>
+    <MtouchLink>SdkOnly</MtouchLink>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchDebug>true</MtouchDebug>
+    <CodesignKey>iPhone Developer</CodesignKey>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>full</DebugType>
@@ -93,13 +94,10 @@
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
-    <Reference Include="RestSharp.MonoTouch">
-      <HintPath>..\Components\restsharp-104.1.0\lib\ios\RestSharp.MonoTouch.dll</HintPath>
-    </Reference>
-    <Reference Include="Calabash">
-      <HintPath>..\Components\calabash-1.169\lib\ios\Calabash.dll</HintPath>
-    </Reference>
     <Reference Include="Xamarin.iOS" />
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\Xamarin.iOS10\RestSharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h%402x.png" />
@@ -144,16 +142,6 @@
       <Project>{05CF34E8-81EA-4E33-8FBE-C46EA521E396}</Project>
       <Name>RottenApi</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <XamarinComponentReference Include="restsharp">
-      <Version>104.1.0</Version>
-      <Visible>False</Visible>
-    </XamarinComponentReference>
-    <XamarinComponentReference Include="calabash">
-      <Version>1.169</Version>
-      <Visible>False</Visible>
-    </XamarinComponentReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\CF_300x300.png" />

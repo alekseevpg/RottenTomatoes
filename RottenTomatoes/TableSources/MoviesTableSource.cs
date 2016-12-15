@@ -82,19 +82,19 @@ namespace RottenTomatoes
             ReloadSectionNeeded();
         }
 
-        public override int NumberOfSections(UITableView tableView)
+        public override nint NumberOfSections(UITableView tableView)
         {
             return _movies.Count;
         }
 
-        public override int RowsInSection(UITableView tableview, int section)
+        public override nint RowsInSection(UITableView tableview, nint section)
         {
-            if (_movies.ContainsKey((MoviesType)section))
-                return _movies[(MoviesType)section].Movies.Count;
+            if (_movies.ContainsKey((MoviesType)(int)section))
+                return _movies[(MoviesType)(int)section].Movies.Count;
             return 0;
         }
 
-        public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
+        public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
             return 90.5f;
         }
@@ -108,12 +108,12 @@ namespace RottenTomatoes
             return cell;
         }
 
-        public override float GetHeightForHeader(UITableView tableView, int section)
+        public override nfloat GetHeightForHeader(UITableView tableView, nint section)
         {
             return 40;
         }
 
-        public override UIView GetViewForHeader(UITableView tableView, int section)
+        public override UIView GetViewForHeader(UITableView tableView, nint section)
         {
             var header = new UIView(new CGRect(0, 0, 320, 40));
             header.BackgroundColor = UIColor.Black;
