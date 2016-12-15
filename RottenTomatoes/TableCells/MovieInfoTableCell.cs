@@ -1,7 +1,7 @@
-﻿using System;
-using MonoTouch.UIKit;
-using System.Drawing;
-using MonoTouch.Foundation;
+using System;
+using UIKit;
+using CoreGraphics;
+using Foundation;
 using RottenApi;
 
 namespace RottenTomatoes.TableCells
@@ -36,7 +36,7 @@ namespace RottenTomatoes.TableCells
     {
         private UILabel _synopsisLbl, _directorLbl, _ratedLbl, _runningTime, _genreLbl, _dvdLbl, _theatresLbl;
 
-        public float Height
+        public nfloat Height
         {
             get
             {
@@ -47,24 +47,24 @@ namespace RottenTomatoes.TableCells
 
         public MovieInfoView(Movie movie, MovieInfo mInfo)
         {
-            _synopsisLbl = CreateLabel(new RectangleF(5, 0, 315, 130));
+            _synopsisLbl = CreateLabel(new CGRect(5, 0, 315, 130));
             _synopsisLbl.AdjustsFontSizeToFitWidth = false;
             _synopsisLbl.Lines = 1000;
 
             UpdateText(_synopsisLbl, string.Format("Synopsis: {0}", mInfo.Synopsis), 10);
             _synopsisLbl.SizeToFit();
 
-            _directorLbl = CreateLabel(new RectangleF(5, _synopsisLbl.Frame.Bottom + 5, 315, 20));
+            _directorLbl = CreateLabel(new CGRect(5, _synopsisLbl.Frame.Bottom + 5, 315, 20));
 
-            _ratedLbl = CreateLabel(new RectangleF(5, _directorLbl.Frame.Bottom + 5, 255, 20));
+            _ratedLbl = CreateLabel(new CGRect(5, _directorLbl.Frame.Bottom + 5, 255, 20));
 
-            _runningTime = CreateLabel(new RectangleF(5, _ratedLbl.Frame.Bottom + 5, 255, 20));
+            _runningTime = CreateLabel(new CGRect(5, _ratedLbl.Frame.Bottom + 5, 255, 20));
 
-            _genreLbl = CreateLabel(new RectangleF(5, _runningTime.Frame.Bottom + 5, 255, 20));
+            _genreLbl = CreateLabel(new CGRect(5, _runningTime.Frame.Bottom + 5, 255, 20));
 
-            _theatresLbl = CreateLabel(new RectangleF(5, _genreLbl.Frame.Bottom + 5, 255, 20));
+            _theatresLbl = CreateLabel(new CGRect(5, _genreLbl.Frame.Bottom + 5, 255, 20));
 
-            _dvdLbl = CreateLabel(new RectangleF(5, _theatresLbl.Frame.Bottom + 5, 255, 20));
+            _dvdLbl = CreateLabel(new CGRect(5, _theatresLbl.Frame.Bottom + 5, 255, 20));
 
             UpdateText(_directorLbl, string.Format("Director: {0}", mInfo.GetFormattedDirector()), 10);
 
@@ -79,7 +79,7 @@ namespace RottenTomatoes.TableCells
             UpdateText(_dvdLbl, string.Format("DVD Release: {0}", movie.ReleaseDates.GetFormattedDvdDate()), 12);
         }
 
-        private UILabel CreateLabel(RectangleF frame)
+        private UILabel CreateLabel(CGRect frame)
         {
             var label = new UILabel(frame)
             {

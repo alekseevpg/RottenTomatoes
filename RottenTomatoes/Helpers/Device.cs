@@ -1,7 +1,6 @@
-﻿using System;
-using MonoTouch.UIKit;
+using UIKit;
 
-namespace RottenTomatoes
+namespace RottenTomatoes.Helpers
 {
     public static class Device
     {
@@ -9,9 +8,11 @@ namespace RottenTomatoes
 
         static Device()
         {
-            if (UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone && UIScreen.MainScreen.Bounds.Height * UIScreen.MainScreen.Scale >= 1136)
+            if (UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone
+                && UIScreen.MainScreen.Bounds.Height * UIScreen.MainScreen.Scale >= 1136)
+            {
                 PhoneHeightOffset = 88;
+            }
         }
     }
 }
-

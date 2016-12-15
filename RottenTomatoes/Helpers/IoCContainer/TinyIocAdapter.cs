@@ -1,7 +1,12 @@
-﻿using TinyIoC;
+using TinyIoC;
 
-namespace CoinKeeper.Logic.IoCContainer
+namespace RottenTomatoes.Helpers.IoCContainer
 {
+    public interface IContainerAdapter
+    {
+        T Resolve<T>() where T : class;
+    }
+
     public class TinyIocAdapter : IContainerAdapter
     {
         private readonly TinyIoCContainer _tinyIocContainer;

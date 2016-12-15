@@ -1,0 +1,23 @@
+﻿<Properties StartupConfiguration="{5CB3310F-3A4B-4E17-9B02-893EB8AF713B}|Default">
+  <MonoDevelop.Ide.ItemProperties.RottenTomatoes PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="RottenApi/ServerApi.cs">
+    <Files>
+      <File FileName="RottenTomatoes/Enums/MoviesType.cs" Line="3" Column="22" />
+      <File FileName="RottenTomatoes/Helpers/IoCContainer/TinyIocAdapter.cs" Line="12" Column="37" />
+      <File FileName="RottenTomatoes/TableCells/ActorTableCell.cs" Line="40" Column="2" />
+      <File FileName="RottenTomatoes/TableCells/MovieInfoTableCell.cs" Line="42" Column="14" />
+      <File FileName="RottenTomatoes/TableCells/MovieTableCell.cs" Line="13" Column="56" />
+      <File FileName="RottenTomatoes/TableCells/ReviewTableCell.cs" Line="1" Column="1" />
+      <File FileName="RottenTomatoes/TableSources/MoviesTableSource.cs" Line="151" Column="2" />
+      <File FileName="RottenTomatoes/TableSources/MovieTableSource.cs" Line="1" Column="1" />
+      <File FileName="RottenTomatoes/AppDelegate.cs" Line="39" Column="13" />
+      <File FileName="RottenApi/Models/MovieList.cs" Line="14" Column="2" />
+      <File FileName="RottenApi/ServerApi.cs" Line="19" Column="9" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

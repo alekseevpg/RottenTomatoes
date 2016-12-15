@@ -1,5 +1,5 @@
-﻿using MonoTouch.UIKit;
-using System.Drawing;
+using UIKit;
+using CoreGraphics;
 using RottenTomatoes.TableCells;
 
 namespace RottenTomatoes
@@ -25,7 +25,7 @@ namespace RottenTomatoes
                 NavigationController.PushViewController(_movieController, true);
             };
             _tableSource.UpdateMovies();
-            _table = new UITableView(new RectangleF(0, 20, 320, 460 + Device.PhoneHeightOffset), UITableViewStyle.Plain);
+            _table = new UITableView(new CGRect(0, 20, 320, 460 + Device.PhoneHeightOffset), UITableViewStyle.Plain);
             _table.RegisterClassForCellReuse(typeof(MovieTableCell), MovieTableCell.CellId); 
             _table.BackgroundColor = UIColor.Clear;
             _table.Source = _tableSource;

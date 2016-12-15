@@ -1,11 +1,12 @@
-﻿using System;
-using MonoTouch.UIKit;
-using System.Drawing;
-using MonoTouch.Foundation;
-using CoinKeeper.Logic.IoCContainer;
+using System;
+using UIKit;
+using CoreGraphics;
+using Foundation;
 using RottenApi;
 using System.Collections.Generic;
 using RottenTomatoes.TableCells;
+using RottenTomatoes.Enums;
+using RottenTomatoes.Helpers.IoCContainer;
 
 namespace RottenTomatoes
 {
@@ -114,10 +115,10 @@ namespace RottenTomatoes
 
         public override UIView GetViewForHeader(UITableView tableView, int section)
         {
-            var header = new UIView(new RectangleF(0, 0, 320, 40));
+            var header = new UIView(new CGRect(0, 0, 320, 40));
             header.BackgroundColor = UIColor.Black;
 
-            var headerLabel = new UILabel(new RectangleF(10, 0, 320, 40))
+            var headerLabel = new UILabel(new CGRect(10, 0, 320, 40))
             {
                 Font = UIFont.FromName("HelveticaNeue-Bold", 15),
                 TextColor = UIColor.White
@@ -148,4 +149,3 @@ namespace RottenTomatoes
         }
     }
 }
-

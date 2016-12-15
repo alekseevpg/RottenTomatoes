@@ -1,6 +1,6 @@
-﻿using MonoTouch.UIKit;
+using UIKit;
 using RottenApi;
-using System.Drawing;
+using CoreGraphics;
 using CoinKeeper.Logic.IoCContainer;
 using RottenTomatoes.TableCells;
 
@@ -27,7 +27,7 @@ namespace RottenTomatoes
             NavigationController.NavigationBar.SetTitleTextAttributes(new UITextAttributes(){ TextColor = UIColor.White });
             View.BackgroundColor = UIColor.White;
 
-            _table = new UITableView(new RectangleF(0, 0, 320, 480 + Device.PhoneHeightOffset));
+            _table = new UITableView(new CGRect(0, 0, 320, 480 + Device.PhoneHeightOffset));
             _table.RegisterClassForCellReuse(typeof(MovieTableCell), MovieTableCell.CellId);
             _table.RegisterClassForCellReuse(typeof(MovieInfoTableCell), MovieInfoTableCell.CellId);
             _table.RegisterClassForCellReuse(typeof(ActorTableCell), ActorTableCell.CellId);
@@ -35,11 +35,11 @@ namespace RottenTomatoes
             _table.BackgroundColor = UIColor.White;
             Add(_table);
 
-            _stabView = new UIView(new RectangleF(0, 0, 320, 416 + Device.PhoneHeightOffset))
+            _stabView = new UIView(new CGRect(0, 0, 320, 416 + Device.PhoneHeightOffset))
             {
                 BackgroundColor = UIColor.FromWhiteAlpha(1, 0.7f),
             };
-            _progressView = new UIActivityIndicatorView(new RectangleF(0, 0, 320, 416 + Device.PhoneHeightOffset));
+            _progressView = new UIActivityIndicatorView(new CGRect(0, 0, 320, 416 + Device.PhoneHeightOffset));
             _progressView.Color = UIColor.Red;
             _stabView.Add(_progressView);
             Add(_stabView);

@@ -1,7 +1,7 @@
 using System;
-using MonoTouch.UIKit;
-using System.Drawing;
-using MonoTouch.Foundation;
+using UIKit;
+using CoreGraphics;
+using Foundation;
 using RottenApi;
 using System.Net;
 
@@ -18,10 +18,10 @@ namespace RottenTomatoes.TableCells
         {
             SelectionStyle = UITableViewCellSelectionStyle.None;
             SeparatorInset = new UIEdgeInsets(0, 0, 0, 0);
-            _thumbnailView = new UIImageView(new RectangleF(0, 0, 60, 90));
+            _thumbnailView = new UIImageView(new CGRect(0, 0, 60, 90));
             Add(_thumbnailView);
 
-            _titleLbl = new UILabel(new RectangleF(65, 5, 255, 17))
+            _titleLbl = new UILabel(new CGRect(65, 5, 255, 17))
             {
                 AdjustsFontSizeToFitWidth = true,
                 Font = UIFont.FromName("HelveticaNeue-Bold", 15),
@@ -29,19 +29,19 @@ namespace RottenTomatoes.TableCells
             };
             Add(_titleLbl);
 
-            _freshView = new UIImageView(new RectangleF(65, 25, 15, 15));
+            _freshView = new UIImageView(new CGRect(65, 25, 15, 15));
             Add(_freshView);
 
-            _ratingLbl = CreateLabel(new RectangleF(85, 25, 220, 15));
+            _ratingLbl = CreateLabel(new CGRect(85, 25, 220, 15));
 
-            _actorsLbl = CreateLabel(new RectangleF(65, 40, 255, 15));
+            _actorsLbl = CreateLabel(new CGRect(65, 40, 255, 15));
 
-            _timingLbl = CreateLabel(new RectangleF(65, 55, 255, 15));
+            _timingLbl = CreateLabel(new CGRect(65, 55, 255, 15));
 
-            _releaseLbl = CreateLabel(new RectangleF(65, 70, 255, 15));
+            _releaseLbl = CreateLabel(new CGRect(65, 70, 255, 15));
         }
 
-        private UILabel CreateLabel(RectangleF frame)
+        private UILabel CreateLabel(CGRect frame)
         {
             var label = new UILabel(frame)
             {

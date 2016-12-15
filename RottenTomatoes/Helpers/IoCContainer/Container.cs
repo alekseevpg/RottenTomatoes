@@ -1,4 +1,4 @@
-﻿namespace CoinKeeper.Logic.IoCContainer
+namespace RottenTomatoes.Helpers.IoCContainer
 {
     public static class Container
     {

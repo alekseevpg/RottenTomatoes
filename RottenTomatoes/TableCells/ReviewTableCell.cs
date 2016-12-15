@@ -1,8 +1,8 @@
-﻿using System;
-using MonoTouch.UIKit;
-using System.Drawing;
+using System;
+using UIKit;
+using CoreGraphics;
 using RottenApi;
-using MonoTouch.Foundation;
+using Foundation;
 
 namespace RottenTomatoes.TableCells
 {
@@ -28,18 +28,18 @@ namespace RottenTomatoes.TableCells
         {
             SelectionStyle = UITableViewCellSelectionStyle.None;
             Accessory = UITableViewCellAccessory.DisclosureIndicator;
-            _freshView = new UIImageView(new RectangleF(5, 20, 15, 15));
+            _freshView = new UIImageView(new CGRect(5, 20, 15, 15));
             Add(_freshView);
 
 
-            _titleLbl = new UILabel(new RectangleF(25, 5, 270, 20))
+            _titleLbl = new UILabel(new CGRect(25, 5, 270, 20))
             {
                 Font = UIFont.FromName("HelveticaNeue-italic", 13),
                 TextColor = UIColor.Black,
             };
             Add(_titleLbl);
 
-            _reviewLbl = new UILabel(new RectangleF(25, 25, 270, 20))
+            _reviewLbl = new UILabel(new CGRect(25, 25, 270, 20))
             {
                 Font = UIFont.FromName("HelveticaNeue", 13),
                 TextColor = UIColor.Black,

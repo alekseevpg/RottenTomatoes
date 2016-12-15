@@ -1,8 +1,8 @@
-﻿using MonoTouch.Foundation;
-using MonoTouch.UIKit;
-using CoinKeeper.Logic.IoCContainer;
+using Foundation;
+using UIKit;
 using TinyIoC;
 using RottenApi;
+using RottenTomatoes.Helpers.IoCContainer;
 
 namespace RottenTomatoes
 {
@@ -28,7 +28,7 @@ namespace RottenTomatoes
             container.Register<IServerApi, ServerApi>().AsSingleton();
 
             window = new UIWindow(UIScreen.MainScreen.Bounds);
-			
+
             _mainController = new MainViewController();
 
             _navController = new UINavigationController(_mainController);
@@ -38,7 +38,7 @@ namespace RottenTomatoes
 #endif
 
             window.MakeKeyAndVisible();
-			
+
             return true;
         }
     }
